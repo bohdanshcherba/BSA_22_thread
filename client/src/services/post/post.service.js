@@ -27,16 +27,25 @@ class Post {
     });
   }
 
-  likePost(postId) {
+  likePost(postId,isLike) {
     return this._http.load(`${this._apiPath}/posts/react`, {
       method: HttpMethod.PUT,
       contentType: ContentType.JSON,
       payload: JSON.stringify({
         postId,
-        isLike: true
+        isLike: isLike
       })
     });
   }
+
+  getPostReaction(postId){
+    return this._http.load(`${this._apiPath}/posts/react/${postId}`, {
+      method: HttpMethod.GET
+    })
+  }
+
+
+
 }
 
 export { Post };

@@ -35,6 +35,11 @@ const Thread = () => {
     [dispatch]
   );
 
+  const handlePostDislike = useCallback(
+    id => dispatch(threadActionCreator.dislikePost(id)),
+    [dispatch]
+  );
+
   const handleExpandedPostToggle = useCallback(
     id => dispatch(threadActionCreator.toggleExpandedPost(id)),
     [dispatch]
@@ -101,6 +106,7 @@ const Thread = () => {
           <Post
             post={post}
             onPostLike={handlePostLike}
+            onPostDislike={handlePostDislike}
             onExpandedPostToggle={handleExpandedPostToggle}
             sharePost={sharePost}
             key={post.id}

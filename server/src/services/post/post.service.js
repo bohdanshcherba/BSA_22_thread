@@ -19,6 +19,11 @@ class Post {
     });
   }
 
+  async getReaction(userId,postId){
+    const result = await this._postReactionRepository.getPostReaction(userId,postId)
+    return result ? result : {}
+  }
+
   async setReaction(userId, { postId, isLike = true }) {
     // define the callback for future use as a promise
     const updateOrDelete = react => (react.isLike === isLike

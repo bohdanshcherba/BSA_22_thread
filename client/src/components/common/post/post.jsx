@@ -7,7 +7,8 @@ import { IconButton, Image } from 'components/common/common';
 
 import styles from './styles.module.scss';
 
-const Post = ({ post, onPostLike, onExpandedPostToggle, sharePost }) => {
+// eslint-disable-next-line react/prop-types
+const Post = ({ post, onPostLike, onPostDislike, onExpandedPostToggle, sharePost }) => {
   const {
     id,
     image,
@@ -21,6 +22,8 @@ const Post = ({ post, onPostLike, onExpandedPostToggle, sharePost }) => {
   const date = getFromNowTime(createdAt);
 
   const handlePostLike = () => onPostLike(id);
+  const handlePostDisLike = () => onPostDislike(id);
+
   const handleExpandedPostToggle = () => onExpandedPostToggle(id);
 
   return (
@@ -41,7 +44,7 @@ const Post = ({ post, onPostLike, onExpandedPostToggle, sharePost }) => {
         <IconButton
           iconName={IconName.THUMBS_DOWN}
           label={dislikeCount}
-          onClick={() => {}}
+          onClick={handlePostDisLike}
         />
         <IconButton
           iconName={IconName.COMMENT}
