@@ -27,6 +27,14 @@ class Post {
     });
   }
 
+  updatePost(id,data){
+    return this._http.load(`${this._apiPath}/posts/${id}`,{
+      method: HttpMethod.PUT,
+      contentType: ContentType.JSON,
+      payload: JSON.stringify(data)
+    })
+  }
+
   likePost(postId,isLike) {
     return this._http.load(`${this._apiPath}/posts/react`, {
       method: HttpMethod.PUT,

@@ -40,6 +40,11 @@
     background-color: $blue;
   }
 
+  &__red {
+    color: $white;
+    background-color: #f80f0f;
+  }
+
   &.loading {
     position: relative;
     cursor: default;

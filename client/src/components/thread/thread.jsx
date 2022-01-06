@@ -49,6 +49,9 @@ const Thread = () => {
     postPayload => dispatch(threadActionCreator.createPost(postPayload)),
     [dispatch]
   );
+  const handlePostUpdate = useCallback((postId,data) => dispatch(threadActionCreator.updatePost({postId,data})),
+    [dispatch]
+  );
 
   const handlePostsLoad = filtersPayload => {
     dispatch(threadActionCreator.loadPosts(filtersPayload));
@@ -104,10 +107,12 @@ const Thread = () => {
       >
         {posts.map(post => (
           <Post
+            userId = {userId}
             post={post}
             onPostLike={handlePostLike}
             onPostDislike={handlePostDislike}
             onExpandedPostToggle={handleExpandedPostToggle}
+            onPostUpdate={handlePostUpdate}
             sharePost={sharePost}
             key={post.id}
           />
@@ -120,6 +125,7 @@ const Thread = () => {
           close={() => setSharedPostId(undefined)}
         />
       )}
+
     </div>
   );
 };

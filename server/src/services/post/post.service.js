@@ -19,6 +19,10 @@ class Post {
     });
   }
 
+  update(id,data){
+    return this._postRepository.updateById(id, data)
+  }
+
   async getReaction(userId,postId){
     const result = await this._postReactionRepository.getPostReaction(userId,postId)
     return result ? result : {}

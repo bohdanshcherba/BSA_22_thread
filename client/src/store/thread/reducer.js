@@ -28,14 +28,17 @@ const reducer = createReducer(initialState, builder => {
 
     state.expandedPost = post;
   });
-  builder.addMatcher(isAnyOf(threadActions.likePost.fulfilled, threadActions.addComment.fulfilled), (state, action) => {
+  builder.addMatcher(isAnyOf(threadActions.likePost.fulfilled,threadActions.updatePost.fulfilled, threadActions.addComment.fulfilled), (state, action) => {
     const { posts, expandedPost } = action.payload;
     state.posts = posts;
     state.expandedPost = expandedPost;
   });
+
+
   builder.addMatcher(isAnyOf(
     threadActions.applyPost.fulfilled,
-    threadActions.createPost.fulfilled
+    threadActions.createPost.fulfilled,
+
   ), (state, action) => {
     const { post } = action.payload;
 

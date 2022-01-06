@@ -42,6 +42,31 @@ const createPost = createAsyncThunk(
   }
 );
 
+const updatePost = createAsyncThunk(
+  ActionType.REACT,
+  async ({postId,data}, {getState, extra: { services } }) => {
+    const { id } = await services.post.updatePost(postId,data);
+    const updatedPost = await services.post.getPost(id);
+
+
+    const {
+      posts: { posts, expandedPost }
+    } = getState();
+
+    const updated = posts.map(post => (
+      post.id !== postId ? post : updatedPost
+    ));
+
+    const updatedExpandedPost = expandedPost?.id === postId
+      ? updatedPost
+      : undefined;
+
+    return { posts: updated, expandedPost: updatedExpandedPost };
+  }
+);
+
+
+
 const toggleExpandedPost = createAsyncThunk(
   ActionType.SET_EXPANDED_POST,
   async (postId, { extra: { services } }) => {
@@ -69,12 +94,14 @@ const likePost = createAsyncThunk(
     const {
       posts: { posts, expandedPost }
     } = getState();
+
     const updated = posts.map(post => (
       post.id !== postId ? post : mapLikes(post)
     ));
     const updatedExpandedPost = expandedPost?.id === postId
       ? mapLikes(expandedPost)
       : undefined;
+
 
 
     return { posts: updated, expandedPost: updatedExpandedPost };
@@ -142,6 +169,7 @@ export {
   loadMorePosts,
   applyPost,
   createPost,
+  updatePost,
   toggleExpandedPost,
   likePost,
   dislikePost,
